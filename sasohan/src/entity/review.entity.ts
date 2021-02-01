@@ -1,6 +1,6 @@
 import { Resolver } from "./resolver.entity";
 import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
-import { Post } from "./post.entity";
+import { Posts } from "./posts.entity";
 
 @Entity()
 export class Review {
@@ -13,7 +13,7 @@ export class Review {
   @Column()
   post_id: string;
 
-  @Column()
+  @Column({nullable: true})
   body: string;
 
   @Column()

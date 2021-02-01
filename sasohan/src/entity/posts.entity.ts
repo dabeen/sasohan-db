@@ -1,10 +1,10 @@
-import { Column, Entity, EntitySchema, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, EntitySchema, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "./category.entity";
 import { ChatRoom } from "./chat-room.entity";
 import { User } from "./user.entity";
 
 @Entity()
-export class Post {
+export class Posts {
   @PrimaryColumn({type: "varchar"})
   post_id: string;
 
@@ -17,7 +17,7 @@ export class Post {
   @Column({type: "varchar", nullable: false})
   body: string;
 
-  @Column({type: "varchar"})
+  @Column({type: "varchar", nullable: true})
   image: string;
 
   @Column({type: "boolean", default: false})
@@ -35,7 +35,7 @@ export class Post {
   @Column({type: "boolean", default: false})
   complete: boolean;
 
-  @ManyToOne(type => Category, cateory => cateory.posts, {
+  @ManyToOne(type => Category, cateory => cateory.post, {
     onDelete: "RESTRICT",
     onUpdate: "CASCADE"
   })
@@ -44,7 +44,7 @@ export class Post {
   ])
   category: Category;
 
-  @ManyToOne(type => User, user => user.posts, {
+  @ManyToOne(type => User, user => user.post, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE"
   })

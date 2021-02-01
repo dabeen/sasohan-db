@@ -1,7 +1,7 @@
 
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
 import { Message } from "./message.entity";
-import { Post } from "./post.entity";
+import { Posts } from "./posts.entity";
 import { UserConnection } from "./user-connection.entity";
 
 @Entity()
@@ -9,26 +9,29 @@ export class User {
   @PrimaryColumn()
   user_id: string;
 
-  @Column()
+  @Column({ unique: true, nullable: false })
   nickname: string;
 
-  @Column()
+  @Column({ nullable: true })
   gender: string;
 
-  @Column()
+  @Column({ nullable: true })
   birthday: string;
 
-  @Column()
+  @Column({ nullable: true })
   email: string;
 
-  @Column()
+  @Column({ nullable: true })
   age_arange: string;
 
-  @Column()
+  @Column({ default: 0 })
   point: number;
 
-  @OneToMany(() => Post, post => post.category)
-  posts: Post[];
+  @Column({nullable: false})
+  account_type: string;
+
+  @OneToMany(() => Posts, post => post.category)
+  post: Posts[];
 
   @OneToMany(() => Message, message => message.user)
   message: Message[];

@@ -1,4 +1,4 @@
-export class PostDto {
+export class PostsDto {
 
   post_id?: string;
   title!: string;

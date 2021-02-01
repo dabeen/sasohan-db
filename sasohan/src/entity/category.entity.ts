@@ -1,16 +1,16 @@
 import { type } from "os";
 import { Column, Entity, EntitySchema, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
-import { Post } from "./post.entity";
+import { Posts } from "./posts.entity";
 
 @Entity()
 export class Category {
   @PrimaryColumn({type: "varchar"})
   category_id: string;
 
-  @Column({type: "varchar", nullable: false})
+  @Column({type: "varchar", nullable: false, })
   category_name: string;
 
-  @OneToMany(() => Post, post => post.category)
-  posts: Post[];
+  @OneToMany(() => Posts, post => post.category)
+  post: Posts[];
 
 }

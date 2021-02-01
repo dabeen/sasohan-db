@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryModule } from './category/category.module';
 import { UserModule } from './user/user.module';
-import { PostModule } from './post/post.module';
+import { PostsModule } from './posts/posts.module';
 import { UserLocationModule } from './user-location/user-location.module';
 import { UserConnectionModule } from './user-connection/user-connection.module';
 import { ResolverModule } from './resolver/resolver.module';
@@ -15,7 +15,7 @@ import { ChatRoomModule } from './chat-room/chat-room.module';
   imports: [TypeOrmModule.forRoot(), 
     CategoryModule, 
     UserModule, 
-    PostModule, 
+    PostsModule, 
     UserLocationModule,
     UserConnectionModule,
     ResolverModule,

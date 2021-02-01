@@ -7,6 +7,6 @@ export class UserDto {
   email!: string;
   age_arange?: string;
   point!: number;
-
+  account_type!: string;
 
 }
