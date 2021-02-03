@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { CategoryDto } from 'src/dto/category.dto';
 import { Category } from '../entity/category.entity';
 import { CateogryService } from './category.service';
@@ -12,10 +12,13 @@ export class CategoryController {
         return await this.categoryService.getAll();
     }
 
-    @Post()
-    async create(@Body() createCategoryDto: CategoryDto) {
-        const result = await this.categoryService.createOneCategory(createCategoryDto);
-        return result;
+    @Post('register')
+    async registerCategory(@Res() res, @Body() createCategoryDto: CategoryDto) {
+        const newCategory = await this.categoryService.createOneCategory(createCategoryDto);
+        return res.status(HttpStatus.OK).json({
+            category: newCategory,
+            querySuccess: true,
+        });
     }
 
     @Get(":id") 

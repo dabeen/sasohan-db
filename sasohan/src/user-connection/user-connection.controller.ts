@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { UserConnectionDto } from 'src/dto/user-connection.dto';
 import { UserConnection } from '../entity/user-connection.entity';
 import { UserConnectionService } from './user-connection.service';
@@ -12,10 +12,14 @@ export class UserConnectionController {
         return await this.userConnectionService.findAll();
     }
 
-    @Post()
-    async create(@Body() createUserConnectionDto: UserConnectionDto) {
-        const result = await this.userConnectionService.createOneUserConnection(createUserConnectionDto);
-        return result;
+
+    @Post('register')
+    async registerUser(@Res() res, @Body() createUserConnectionDto: UserConnectionDto) {
+        const newUserConnection = await this.userConnectionService.createOneUserConnection(createUserConnectionDto);
+        return res.status(HttpStatus.OK).json({
+            userConnection: newUserConnection,
+            querySuccess: true,
+        });
     }
 
     @Get(":id") 

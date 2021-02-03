@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { UserLocationDto } from 'src/dto/user-location.dto';
 import { UserLocation } from '../entity/user-location.entity';
 import { UserLocationService } from './user-location.service';
@@ -12,10 +12,14 @@ export class UserLocationController {
         return await this.userLocationService.findAll();
     }
 
-    @Post()
-    async create(@Body() createUserLocationDto: UserLocationDto) {
-        const result = await this.userLocationService.createOneUserLocation(createUserLocationDto);
-        return result;
+    
+    @Post('register')
+    async registerUser(@Res() res, @Body() createUserLocationDto: UserLocationDto) {
+        const newUserLocation = await this.userLocationService.createOneUserLocation(createUserLocationDto);
+        return res.status(HttpStatus.OK).json({
+            userLocation: newUserLocation,
+            querySuccess: true,
+        });
     }
 
     @Get(":id") 

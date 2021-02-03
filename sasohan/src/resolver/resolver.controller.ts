@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { ResolverDto } from 'src/dto/resolver.dto';
 import { Resolver } from '../entity/resolver.entity';
 import { ResolverService } from './resolver.service';
@@ -16,6 +16,15 @@ export class ResolverController {
     async create(@Body() createResolverDto: ResolverDto) {
         const result = await this.resolverService.createOneResolver(createResolverDto);
         return result;
+    }
+
+    @Post('register')
+    async registerResolver(@Res() res, @Body() createResolverDto: ResolverDto) {
+        const newResolver = await this.resolverService.createOneResolver(createResolverDto);
+        return res.status(HttpStatus.OK).json({
+            resolver: newResolver,
+            querySuccess: true,
+        });
     }
 
     @Get(":id") 

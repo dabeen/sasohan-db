@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { MessageDto } from 'src/dto/message.dto';
+import { PostsDto } from 'src/dto/posts.dto';
 import { Message } from '../entity/message.entity';
 import { MessageService } from './message.service';
 
@@ -11,10 +12,14 @@ export class MessageController {
     async getAll():Promise<Message[]>{
         return await this.messageService.findAll();
     }
+    
     @Post()
-    async create(@Body() createMessageDto: MessageDto) {
-        const result = await this.messageService.createOneMessage(createMessageDto);
-        return result;
+    async registerMessage(@Res() res, @Body() createMessageDto: MessageDto) {
+        const newMessage = await this.messageService.createOneMessage(createMessageDto);
+        return res.status(HttpStatus.OK).json({
+            message: newMessage,
+            querySuccess: true,
+        });
     }
 
     @Get(":id") 

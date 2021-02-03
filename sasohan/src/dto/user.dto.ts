@@ -1,12 +1,18 @@
+import { IsEmail, IsNotEmpty } from "class-validator";
+
+
 export class UserDto {
 
-  post_id!: string;
-  nickname?: string;
-  gender?: string;
-  birthday?: string;
-  email!: string;
-  age_arange?: string;
-  point!: number;
-  account_type!: string;
+  user_id: string;
+  nickname: string;
+  gender: string;
+  birthday: string;
+
+  @IsEmail()
+  email: string;
+  
+  age_arange: string;
+  point: number;
+  account_type: string;
 
 }

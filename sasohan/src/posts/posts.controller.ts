@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Put, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Put, Post, HttpStatus, Res } from '@nestjs/common';
 import { Posts } from '../entity/posts.entity' ;
 import { PostsDto } from 'src/dto/posts.dto';
 import { PostsService } from './posts.service';
@@ -13,10 +13,13 @@ export class PostsController {
         return await this.postsService.findAll();
     }
 
-    @Post()
-    async create(@Body() createPostsDto: PostsDto) {
-        const result = await this.postsService.createOnePost(createPostsDto);
-        return result;
+    @Post("register")
+    async registerPost(@Res() res, @Body() createPostDto: PostsDto) {
+        const newPost = await this.postsService.createOnePost(createPostDto);
+        return res.status(HttpStatus.OK).json({
+            post: newPost,
+            querySuccess: true,
+        });
     }
 
     @Get(":id") 

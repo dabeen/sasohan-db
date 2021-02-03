@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { ChatRoomDto } from 'src/dto/chat-room.dto';
 import { ChatRoom } from '../entity/chat-room.entity';
 import { ChatRoomService } from './chat-room.service';
@@ -16,6 +16,15 @@ export class ChatRoomController {
     async create(@Body() createChatRoomDto: ChatRoomDto) {
         const result = await this.chatRoomService.createOneChatRoom(createChatRoomDto);
         return result;
+    }
+
+    @Post('register')
+    async registerChatRoom(@Res() res, @Body() createChatRoom: ChatRoomDto) {
+        const newChatRoom = await this.chatRoomService.createOneChatRoom(createChatRoom);
+        return res.status(HttpStatus.OK).json({
+            post: newChatRoom,
+            querySuccess: true,
+        });
     }
 
     @Get(":id") 
