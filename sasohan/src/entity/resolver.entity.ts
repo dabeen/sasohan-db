@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Posts } from "./posts.entity";
 import { User } from "./user.entity";
 
@@ -10,12 +10,12 @@ export class Resolver {
   @Column()
   user_id: string;
 
-  @OneToOne(() => User,{
-    onDelete: "CASCADE",
+  @ManyToOne(type => User, user => user.resolver, {
+    onDelete: "SET NULL",
     onUpdate: "CASCADE"
   })
   @JoinColumn([
-    { name: "user_id", referencedColumnName: "user_id"}
+    {name: "user_id", referencedColumnName: "user_id"}
   ])
   user: User;
 
@@ -28,4 +28,5 @@ export class Resolver {
   ])
   post: Posts;
 
+  
 }

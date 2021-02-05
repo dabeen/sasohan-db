@@ -22,14 +22,11 @@ export class Review {
   @Column()
   point: number;
 
-  @OneToOne(() => Resolver,{
-    onDelete: "SET NULL",
-    onUpdate: "CASCADE"
-  })
+  
   @JoinColumn([
     { name: "user_id", referencedColumnName: "user_id"}
   ])
-  resolver: Resolver
+  resolver: Resolver;
 
   @OneToOne(() => Resolver,{
     onDelete: "SET NULL",
@@ -38,6 +35,6 @@ export class Review {
   @JoinColumn([
     { name: "post_id", referencedColumnName: "post_id"}
   ])
-  resolvr: Resolver
+  resolvr: Resolver;
 
 }
