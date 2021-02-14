@@ -4,7 +4,8 @@ import { User } from "./user.entity";
 
 @Entity()
 export class Message {
-  @PrimaryColumn({type: "varchar", nullable: false})
+  
+  @PrimaryGeneratedColumn("uuid")
   message_id: string;
 
   @Column({type: "varchar", nullable: false})
