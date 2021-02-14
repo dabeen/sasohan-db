@@ -4,4 +4,9 @@ export class MessageDTO {
   user_id: string;
   text: string;
   created_at: number;
+  success: boolean;
+}
+
+export class StatusUpdateMessageDTO {
+  success !: boolean;
 }
