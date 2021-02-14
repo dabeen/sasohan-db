@@ -1,30 +1,30 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn} from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 import { ChatRoom } from "./chat-room.entity";
 import { User } from "./user.entity";
 
 @Entity()
 export class Message {
-  @PrimaryColumn({type: "varchar"})
+  @PrimaryColumn({type: "varchar", nullable: false})
   message_id: string;
 
-  @Column({type: "varchar"})
-  room_id: string;
+  @Column({type: "varchar", nullable: false})
+  chat_room_id: string;
 
-  @Column({type: "varchar"})
+  @Column({type: "varchar", nullable: false})
   user_id: string;
 
-  @Column({type: "varchar"})
-  message: string;
+  @Column({type: "varchar", nullable: false})
+  text: string;
 
-  @Column({type: "varchar"})
-  created_at: string;
+  @Column({type: "bigint", nullable: false})
+  time: number;
   
   @ManyToOne(type => ChatRoom, chatRoom => chatRoom.message, {
     onDelete: "CASCADE",
     onUpdate: "NO ACTION"
   })
   @JoinColumn([
-    {name: "room_id", referencedColumnName: "room_id"}
+    {name: "chat_room_id", referencedColumnName: "chat_room_id"}
   ])
   chatRooms: ChatRoom;
 

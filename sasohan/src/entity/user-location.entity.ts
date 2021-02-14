@@ -12,11 +12,6 @@ export class UserLocation {
   @Column()
   location_y: string;
 
-  @OneToOne(() => User,{
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
-  })
-  @JoinColumn()
-  user: User;
+  
   
 }

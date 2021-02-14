@@ -1,16 +1,21 @@
+import { Post } from "@nestjs/common";
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Posts } from "./posts.entity";
 import { User } from "./user.entity";
 
 @Entity()
 export class Resolver {
-  @PrimaryColumn()
-  post_id: string;
+  
+  @PrimaryGeneratedColumn("uuid")
+  resolver_id : string;
 
   @Column()
-  user_id: string;
+  post_id : string;
 
-  @ManyToOne(type => User, user => user.resolver, {
+  @Column()
+  user_id : string;
+
+  @ManyToOne(() => User, user => user.resolver, {
     onDelete: "SET NULL",
     onUpdate: "CASCADE"
   })
@@ -19,14 +24,15 @@ export class Resolver {
   ])
   user: User;
 
-  @OneToOne(() => Posts,{
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION"
+  @ManyToOne(() => Posts, posts => posts.resolver, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
   })
   @JoinColumn([
-    { name: "post_id", referencedColumnName: "post_id"}
+    {name: "post_id", referencedColumnName: "post_id"}
   ])
-  post: Posts;
+  posts: Posts;
 
-  
+
+
 }

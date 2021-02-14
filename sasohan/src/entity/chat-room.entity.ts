@@ -4,10 +4,10 @@ import { Posts } from "./posts.entity";
 
 @Entity()
 export class ChatRoom {
-  @PrimaryColumn()
-  room_id: string;
+  @PrimaryColumn({type: "varchar", nullable: false})
+  chat_room_id: string;
 
-  @Column()
+  @Column({type: "varchar", nullable: false})
   category_name: string;
 
   @ManyToOne(type => Posts, posts => posts.chatRooms, {

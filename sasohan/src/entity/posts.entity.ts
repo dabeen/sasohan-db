@@ -1,6 +1,8 @@
+
 import { Column, Entity, EntitySchema, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "./category.entity";
 import { ChatRoom } from "./chat-room.entity";
+import { Resolver } from "./resolver.entity";
 import { User } from "./user.entity";
 
 @Entity()
@@ -29,13 +31,19 @@ export class Posts {
   @Column({type: "int", nullable: false})
   price: number;
 
-  @Column({type: "varchar", nullable: false})
-  created_at: string;
+  @Column({type: "bigint", nullable: false})
+  created_at: number;
 
   @Column({type: "boolean", default: false})
   complete: boolean;
 
-  @ManyToOne(type => Category, cateory => cateory.post, {
+  @Column({ type: "varchar", nullable: true})
+  location_x : string;
+
+  @Column({ type: "varchar", nullable: true})
+  location_y : string;
+
+  @ManyToOne(() => Category, category => category.post, {
     onDelete: "RESTRICT",
     onUpdate: "CASCADE"
   })
@@ -44,7 +52,7 @@ export class Posts {
   ])
   category: Category;
 
-  @ManyToOne(type => User, user => user.post, {
+  @ManyToOne(() => User, user => user.posts, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE"
   })
@@ -55,6 +63,10 @@ export class Posts {
 
   @OneToMany(() => ChatRoom, chatRoom => chatRoom.post)
   chatRooms: ChatRoom[];
+
+  @OneToMany(() => Resolver, resolver => resolver.posts)
+  resolver: Resolver[];
+
 
 
 }

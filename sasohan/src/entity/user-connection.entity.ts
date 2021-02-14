@@ -3,19 +3,13 @@ import { User } from "./user.entity";
 
 @Entity()
 export class UserConnection {
-  @PrimaryColumn()
+  @PrimaryColumn({type: "varchar",nullable: false})
   user_id: string;
 
-  @Column()
-  connected_at: string;
+  @Column({type: "bigint", nullable: false})
+  connected_at: number;
 
-  @Column()
+  @Column({type: "boolean", nullable: false})
   connection_status: boolean;
   
-  @OneToOne(() => User,{
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
-  })
-  @JoinColumn()
-  user: User;
 }
