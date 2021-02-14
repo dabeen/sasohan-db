@@ -7,7 +7,7 @@ import { User } from "./user.entity";
 
 @Entity()
 export class Posts {
-  @PrimaryColumn({type: "varchar"})
+  @PrimaryGeneratedColumn("uuid")
   post_id: string;
 
   @Column({type: "varchar", nullable: false})
