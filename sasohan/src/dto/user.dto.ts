@@ -1,18 +1,22 @@
-import { IsEmail, IsNotEmpty } from "class-validator";
+export class UserDTO {
 
-
-export class UserDto {
-
-  user_id: string;
-  nickname: string;
-  gender: string;
-  birthday: string;
-
-  @IsEmail()
-  email: string;
-  
-  age_arange: string;
-  point: number;
+  user_id : string;
+  nickname : string;
+  gender : string;
+  birthday : string;
+  age : number;
+  point : number; 
   account_type: string;
+}
 
+export class UpdateUserDTO {
+
+  gender : string;
+  birthday : string;
+  age : number;
+
+}
+
+export class UpdateUserPointDTO {
+  point : number;
 }

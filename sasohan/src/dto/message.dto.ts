@@ -1,9 +1,7 @@
-export class MessageDto {
-
-  message_id : string;
-  room_id : string;
-  user_id : string;
-  message : string;
-  created_at: string;
-
+export class MessageDTO {
+  message_id: string;
+  chat_room_id: string;
+  user_id: string;
+  text: string;
+  created_at: number;
 }
