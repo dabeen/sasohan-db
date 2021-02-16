@@ -41,6 +41,9 @@ export class Review {
     onDelete: "CASCADE",
     onUpdate: "CASCADE"
   })
+  @JoinColumn([
+    {name: "post_id", referencedColumnName: "post_id"}
+  ])
   posts: Posts;
 }
 
