@@ -1,10 +1,10 @@
 import { Injectable, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Resolver } from 'dns';
 import { PostsDTO, UpdateCompletePostDTO, UpdatePostsDTO } from 'src/DTO/posts.dto';
 import { Category } from 'src/entity/category.entity';
 import { Connection, createQueryBuilder, getConnection, getRepository, QueryBuilder, Repository } from 'typeorm';
 import { Posts } from '../entity/posts.entity';
+import { Resolver } from '../entity/resolver.entity';
 
 @Injectable()
 export class PostsService {
@@ -46,16 +46,21 @@ export class PostsService {
   }
 
   async getAllUserResolvedPosts(user_id: string) {
-    return (await this.postsRepo.query
-    (`SELECT posts.post_id , posts.user_id , posts.title , posts.body , posts.image , posts.visit , posts.category_id , posts.price , posts.created_at ,posts.location_x, posts.location_y, posts.complete 
-    FROM posts 
-    LEFT JOIN resolver ON resolver.post_id  = posts.post_id 
-    WHERE resolver.user_id ='${user_id}';`))
+    // return (await this.postsRepo.query
+    // (`SELECT posts.post_id , posts.user_id , posts.title , posts.body , posts.image , posts.visit , posts.category_id , posts.price , posts.created_at ,posts.location_x, posts.location_y, posts.complete 
+    // FROM posts 
+    // LEFT JOIN resolver ON resolver.post_id  = posts.post_id 
+    // WHERE resolver.user_id ='${user_id}';`))
 
-    // const posts = await createQueryBuilder("posts")
-    // .leftJoinAndSelect("resolver.posts", "posts")
-    // .where("resolver.user_id = :user_id", {user_id: user_id})
-    // .getMany();
+    const posts = await getConnection().createQueryBuilder()
+    .select("posts")
+    .from(Posts, "posts")
+    .leftJoin(Resolver, "resolver", "resolver.post_id = posts.post_id")
+    .where("resolver.user_id = :user_id", {user_id : user_id})
+    .getMany();
+
+    return posts
+    
 
   }
 
