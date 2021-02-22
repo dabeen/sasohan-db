@@ -46,11 +46,6 @@ export class PostsService {
   }
 
   async getAllUserResolvedPosts(user_id: string) {
-    // return (await this.postsRepo.query
-    // (`SELECT posts.post_id , posts.user_id , posts.title , posts.body , posts.image , posts.visit , posts.category_id , posts.price , posts.created_at ,posts.location_x, posts.location_y, posts.complete 
-    // FROM posts 
-    // LEFT JOIN resolver ON resolver.post_id  = posts.post_id 
-    // WHERE resolver.user_id ='${user_id}';`))
 
     const posts = await getConnection().createQueryBuilder()
     .select("posts")
@@ -60,10 +55,7 @@ export class PostsService {
     .getMany();
 
     return posts
-    
-
   }
-
 
   async getUnresolvedPosts() {
     const posts = await getConnection().createQueryBuilder().select("posts")
@@ -74,10 +66,18 @@ export class PostsService {
     return posts;
   }
 
-  
-  
+  async getAllCategoryPosts(category_id: string) {
 
+    const posts = await getConnection().createQueryBuilder()
+    .select("posts")
+    .from(Posts, "posts")
+    .leftJoin(Category, "category", "category.category_id = posts.category_id")
+    .where("posts.category_id = :category_id", {category_id: category_id})
+    .andWhere("posts.complete = false")
+    .getMany();
 
+    return posts;
+  }
 
   
 }

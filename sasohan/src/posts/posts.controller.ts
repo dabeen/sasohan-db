@@ -80,6 +80,23 @@ export class PostsController {
         } 
     }
 
+    @Get("/:category_id") 
+    async getAllCategoryPosts(@Param("category_name") category_id : string) {
+        // This api returns category_id as a parameter and gets all unresolved posts in that category.
+        try {
+            const allCategoryPosts = await this.postsService.getAllCategoryPosts(category_id);
+            return {
+                posts: allCategoryPosts,
+                success: true
+            } 
+        } catch(e)  {
+            return {
+                success: false,
+                error_msg: e
+            }
+        } 
+    }
+
     @Get(":id")
     async getOnePost(@Param("id") Post_id: string) {
         // this returns one Post in sasohan database
