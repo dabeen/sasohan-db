@@ -5,7 +5,7 @@ import { Posts } from "./posts.entity";
 
 @Entity()
 export class Review {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   review_id: string;
 
   // This is ID of the user who wrote the review
