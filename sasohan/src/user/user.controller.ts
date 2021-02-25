@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpStatus, Logger, NotFoundException, Param, Post, Put, Query, Res } from '@nestjs/common';
-import { UpdateUserDTO, UserDTO } from 'src/dto/user.dto';
+import { UpdateUserDTO, UpdateUserPointDTO, UserDTO } from 'src/dto/user.dto';
 import { User } from '../entity/user.entity';
 import { UserService } from './user.service';
 
@@ -86,5 +86,20 @@ export class UserController {
         }
     }
 
+    @Put("/point/:user_id")
+    async updateUserPoint(@Param("user_id") user_id: string, @Body() updateUserPointDTO: UpdateUserPointDTO) {
+
+        try {
+            await this.userService.updateUserPoint(user_id, updateUserPointDTO)
+            return {
+                success: true
+            }
+        } catch (e) {
+            return {
+                success: false,
+                error_msg: e
+            }
+        }
+    }
     
 }

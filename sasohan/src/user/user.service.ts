@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UpdateUserDTO, UserDTO } from 'src/dto/user.dto';
-import { createQueryBuilder, Repository } from 'typeorm';
+import { json } from 'express';
+import { get } from 'http';
+import { UpdateUserDTO, UpdateUserPointDTO, UserDTO } from 'src/dto/user.dto';
+import { createQueryBuilder, getConnection, Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
 
 @Injectable()
@@ -29,13 +31,16 @@ export class UserService {
     return this.userRepo.update(id, updateUserDto);
   }
 
-  
+  async updateUserPoint(user_id: string, updateUserPointDTO : UpdateUserPointDTO) {
+    const userPoint = await this.userRepo.createQueryBuilder()
+    .select("user.point")
+    .from(User, "user")
+    .where("user.user_id = :user_id", {user_id: user_id})
+    .getOne();
+    
+    const updatePoint = {"point" : userPoint.point + updateUserPointDTO.point}
 
-  
-
-  
-
-
-
+    return this.userRepo.update(user_id, updatePoint)
+  }
 
 }
