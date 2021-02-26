@@ -1,17 +1,17 @@
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class ReviewDTO {
 
-  review_id !: string;
-  user_id !: string;
-  post_id !: string;
-  body ?: string;
+  @IsString()
+  user_id : string;
+  @IsString()
+  post_id : string;
+  @IsString()
+  @IsOptional()
+  body : string;
+  @IsNumber()
   created_at !: number;
+  @IsNumber()
   point !: number;
 
-}
-
-export class UpdateReviewDTO {
-  body ?: string;
-  created_at !: number;
-  point ?: number;
 }

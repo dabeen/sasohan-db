@@ -1,5 +1,9 @@
+import { IsString } from "class-validator";
+
 export class ResolverDTO {
-  resolver_id !: string;
+  
+  @IsString()
   user_id !: string;
+  @IsString()
   post_id !: string;
 }

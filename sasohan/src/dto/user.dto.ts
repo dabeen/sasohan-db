@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UserDTO {
   @IsString()
@@ -11,12 +11,15 @@ export class UserDTO {
   gender : string;
 
   @IsString()
+  @IsOptional()
   birthday : string;
 
   @IsNumber()
+  @IsOptional()
   age : number;
 
   @IsNumber()
+  @IsOptional()
   point : number; 
 
   @IsString()
@@ -25,13 +28,16 @@ export class UserDTO {
 
 export class UpdateUserDTO {
   @IsString()
+  @IsOptional()
   gender ?: string;
 
   @IsString()
+  @IsOptional()
   birthday ?: string;
 
   @IsNumber()
-  age : number;
+  @IsOptional()
+  age ?: number;
   
 }
 

@@ -1,29 +1,86 @@
-export class PostsDTO {
+import { IsBoolean, IsNumber, IsOptional, IsString } from "class-validator";
 
-  post_id !: string;
-  user_id !: string;
-  title !: string;
-  body !: string;
-  image ?: string;
-  visit !: boolean;
-  category_id !: string;
-  price !: number;
-  created_at !: number;
-  complete !: boolean;
+export class PostsDTO {s
+
+  @IsString()
+  user_id : string;
+
+  @IsString()
+  title : string;
+
+  @IsString()
+  body : string;
+
+  @IsString()
+  @IsOptional()
+  image : string;
+
+  @IsBoolean()
+  visit : boolean;
+
+  @IsString()
+  category_id : string;
+
+  @IsNumber()
+  price : number;
+
+  @IsNumber()
+  created_at : number;
+
+  @IsBoolean()
+  complete : boolean;
+
+  @IsString()
+  @IsOptional()
   location_x : string;
+
+  @IsString()
+  @IsOptional()
   location_y : string;
+  
 }
 
 export class UpdatePostsDTO {
 
-  title ?: string;
-  body ?: string;
-  image ?: string;
-  visit ?: boolean;
-  price ?: number;
-  complete ?: boolean;
-  created_at?: number;
-  x ?: string;
-  y ?: string;
+  @IsString()
+  @IsOptional()
+  title : string;
 
+  @IsString()
+  @IsOptional()
+  body : string;
+
+  @IsString()
+  @IsOptional()
+  image : string;
+
+  @IsBoolean()
+  @IsOptional()
+  visit : boolean;
+
+  @IsNumber()
+  @IsOptional()
+  price : number;
+
+  @IsString()
+  @IsOptional()
+  category_id : string;
+
+  @IsNumber()
+  @IsOptional()
+  created_at : number;
+
+  @IsString()
+  @IsOptional()
+  location_x : string;
+
+  @IsString()
+  @IsOptional()
+  location_y : string;
+
+}
+
+export class UpdateCompletePostDTO {
+  @IsBoolean()
+  complete : boolean;
 }

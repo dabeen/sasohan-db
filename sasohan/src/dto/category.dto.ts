@@ -1,4 +1,10 @@
+import { IsString } from "class-validator";
+
 export class CategoryDTO {
-  category_id !: string;
-  category_name !: string;
+
+  @IsString()
+  category_id : string;
+
+  @IsString()
+  category_name : string;
 }
